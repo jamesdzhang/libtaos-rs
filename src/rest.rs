@@ -51,6 +51,9 @@ enum TaosQueryResponse {
 }
 
 fn value_to_field(from: &TaosQueryResponse, value: Value, meta: &ColumnMeta) -> Field {
+    if(value.to_string() == "null"){
+        return Field::Null
+    }
     match meta.type_ {
         TaosDataType::Null => Field::Null,
         TaosDataType::TinyInt => Field::TinyInt(
